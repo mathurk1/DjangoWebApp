@@ -20,3 +20,5 @@ class MenuItem(models.Model):
     description = models.TextField(max_length=255)
     price = models.DecimalField(max_digits=12,decimal_places=2)
     course = models.CharField(max_length=30)
+    restaurant_id = models.ForeignKey('Restaurant',
+                                      on_delete=models.CASCADE)
