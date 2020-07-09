@@ -1,0 +1,12 @@
+#ignore env folder
+env/
+
+#ignore idea folder
+.idea/
+
+#ignore pyc files
+__pycache__/
+*.py[cod]
+
+#ignore sqlite db
+db.sqlite3
