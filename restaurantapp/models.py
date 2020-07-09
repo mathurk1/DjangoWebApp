@@ -1,7 +1,6 @@
 from django.db import models
 
 
-#Createyourmodelshere.
 class Restaurant(models.Model):
     """create the restaurant model"""
 
@@ -11,6 +10,9 @@ class Restaurant(models.Model):
                                 null=True,
                                 blank=True,
                                 on_delete=models.SET_NULL,)
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 class MenuItem(models.Model):
@@ -22,3 +24,6 @@ class MenuItem(models.Model):
     course = models.CharField(max_length=30)
     restaurant_id = models.ForeignKey('Restaurant',
                                       on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name}"
