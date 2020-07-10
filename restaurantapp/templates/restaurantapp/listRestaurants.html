@@ -8,6 +8,9 @@
     <a href="/restaurant/new" > <h4> Create a New Restaurant </h4></a>
     {% for restaurant in restaurant_list %}
         <li>{{ restaurant.name }}</li>
+
+        <p> <a href = "{% url 'delRestaurant' restaurant.id %}">Delete Restaurant</a> </p>
+
     {% endfor %}
 
 
