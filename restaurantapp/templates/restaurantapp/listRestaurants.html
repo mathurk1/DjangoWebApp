@@ -5,7 +5,7 @@
     <title>Restaurant</title>
 </head>
 <body>
-    <a href="/restaurant/new" > <h4> Create a New Restaurant </h4></a>
+    <a href = "{% url 'addRestaurant' %}" > <h4> Create a New Restaurant </h4></a>
     {% for restaurant in restaurant_list %}
         <li>{{ restaurant.name }}</li>
 
