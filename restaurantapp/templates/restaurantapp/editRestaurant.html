@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Restaurant</title>
+</head>
+<body>
+    <form action= "{% url 'editRestaurant' restaurant.id %}" method="post">{% csrf_token %}
+        <p>Restaurant Name:</p>
+        <input type ='text' name='name' id="editRestaurant" value="{{ restaurant.name }}">
+        <input type="submit" value="editRestaurant"/>
+    </form>
+</body>
+</html>
