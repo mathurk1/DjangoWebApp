@@ -4,7 +4,7 @@ from django.http import Http404
 from .models import Restaurant
 
 
-def index(request):
+def listRestaurant(request):
     restaurant_list = Restaurant.objects.order_by('name')
     context = {'restaurant_list': restaurant_list}
 
