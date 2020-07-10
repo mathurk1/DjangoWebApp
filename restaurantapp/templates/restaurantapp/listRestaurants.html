@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant</title>
+</head>
+<body>
+    <a href = "{% url 'addRestaurant' %}" > <h4> Create a New Restaurant </h4></a>
+    {% for restaurant in restaurant_list %}
+        <li>{{ restaurant.name }}</li>
+
+        <p> <a href = "{% url 'delRestaurant' restaurant.id %}">Delete Restaurant</a> </p>
+
+        <p> <a href = "{% url 'editRestaurant' restaurant.id %}">Edit Restaurant</a> </p>
+
+    {% endfor %}
+
+
+</body>
+</html>
