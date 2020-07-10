@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant</title>
+</head>
+<body>
+    <a href="/restaurant/new" > <h4> Create a New Restaurant </h4></a>
+    {% for restaurant in restaurant_list %}
+        <li>{{ restaurant.name }}</li>
+    {% endfor %}
+
+
+</body>
+</html>
