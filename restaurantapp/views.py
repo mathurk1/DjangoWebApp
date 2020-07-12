@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import Http404
 
-from .models import Restaurant
+from .models import Restaurant, MenuItem
 
 
 def listRestaurant(request):
@@ -65,3 +65,13 @@ def editRestaurant(request, restaurant_id):
 
         return render(request, 'restaurantapp/listRestaurants.html', context)
 
+
+def listMenu(request, restaurant_id):
+    """This function returns all menu items
+    for a given restaurant id"""
+
+    menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
+
+    context = {'menuList': menuList}
+
+    return render(request, 'restaurantapp/listMenu.html', context)

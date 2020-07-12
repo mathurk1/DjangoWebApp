@@ -9,6 +9,8 @@
     {% for restaurant in restaurant_list %}
         <li>{{ restaurant.name }}</li>
 
+        <p> <a href = "{% url 'listMenu' restaurant.id %}">List Menu</a> </p>
+
         <p> <a href = "{% url 'delRestaurant' restaurant.id %}">Delete Restaurant</a> </p>
 
         <p> <a href = "{% url 'editRestaurant' restaurant.id %}">Edit Restaurant</a> </p>
