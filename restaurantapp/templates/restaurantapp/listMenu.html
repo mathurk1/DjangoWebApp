@@ -10,6 +10,8 @@
     {% for MenuItem in menuList %}
         <li>{{ MenuItem.name }} - {{ MenuItem.description }} - {{ MenuItem.price }}</li>
 
+        <p> <a href = "{% url 'deleteMenu' MenuItem.restaurant_id MenuItem.id %}">Delete Menu Item</a> </p>
+
     {% endfor %}
 
     </br>
