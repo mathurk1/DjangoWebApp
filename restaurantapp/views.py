@@ -52,7 +52,6 @@ def editRestaurant(request, restaurant_id):
         raise Http404("Restaurant does not exist")
 
     if request.method == 'GET':
-        print("inside GET if section")
         return render(request, 'restaurantapp/editRestaurant.html', context)
 
     if request.method == 'POST':
@@ -107,6 +106,30 @@ def addMenuItem(request, restaurant_id):
         context = {'menuList': menuList, 'restaurant_id': restaurant_id}
 
         return render(request, 'restaurantapp/listMenu.html', context)
+
+
+def editMenu(request, restaurant_id, menu_id):
+    """This function edits a given menu item"""
+
+    if request.method == 'GET':
+        menuItem = MenuItem.objects.filter(id=menu_id).first()
+        context = {'menuItem': menuItem}
+
+        return render(request, 'restaurantapp/editMenu.html', context)
+
+    if request.method == 'POST':
+        MenuItem.objects.filter(id=menu_id)\
+            .update(name=request.POST.get('name'),
+                    description=request.POST.get('description'),
+                    price=request.POST.get('price'),
+                    course=request.POST.get('course'),
+                    )
+
+        menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
+        context = {'menuList': menuList, 'restaurant_id': restaurant_id}
+
+        return render(request, 'restaurantapp/listMenu.html', context)
+
 
 
 

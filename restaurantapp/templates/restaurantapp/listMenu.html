@@ -13,6 +13,8 @@
 
         <p> <a href = "{% url 'deleteMenu' MenuItem.restaurant_id MenuItem.id %}">Delete Menu Item</a> </p>
 
+        <p> <a href = "{% url 'editMenu' MenuItem.restaurant_id MenuItem.id %}">Edit Menu Item</a> </p>
+
     {% endfor %}
 
     <a href = "{% url 'addMenuItem' restaurant_id %}" > <h4> Create a New Menu Item </h4></a>
