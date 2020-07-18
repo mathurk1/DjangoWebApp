@@ -83,7 +83,7 @@ def deleteMenu(request, restaurant_id, menu_id):
     try:
         MenuItem.objects.filter(id=menu_id).delete()
         menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
-        context = {'menuList': menuList}
+        context = {'menuList': menuList, 'restaurant_id': restaurant_id}
         return render(request, 'restaurantapp/listMenu.html', context)
     except Restaurant.DoesNotExist:
         raise Http404("Menu Item does not exist")
