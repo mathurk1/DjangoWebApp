@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Menu</title>
+</head>
+<body>
+    <form action= "{% url 'editMenu' menuItem.restaurant_id menuItem.id %}" method="post"> {% csrf_token %}
+        <h3>Menu Name:</h3>
+        <p>Name</p>
+        <input type ='text' name='name' id="editMenu" value="{{ menuItem.name }}">
+        <p>Description</p>
+        <input type ='text' name='description' id="editDescription" value="{{ menuItem.description }}">
+        <p>Price</p>
+        <input type ='text' name='price' id="editPrice" value="{{ menuItem.price }}">
+        <p>Course</p>
+        <input type ='text' name='course' id="editCourse" value="{{ menuItem.course }}">
+        <br>
+        <br>
+        <input type="submit" value="editMenu"/>
+    </form>
+</body>
+</html>
