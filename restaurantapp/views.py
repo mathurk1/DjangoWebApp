@@ -72,7 +72,7 @@ def listMenu(request, restaurant_id):
 
     menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
 
-    context = {'menuList': menuList}
+    context = {'menuList': menuList, 'restaurant_id': restaurant_id }
 
     return render(request, 'restaurantapp/listMenu.html', context)
 
@@ -87,3 +87,26 @@ def deleteMenu(request, restaurant_id, menu_id):
         return render(request, 'restaurantapp/listMenu.html', context)
     except Restaurant.DoesNotExist:
         raise Http404("Menu Item does not exist")
+
+
+def addMenuItem(request, restaurant_id):
+
+    if request.method == "GET":
+        context = {'restaurant_id': restaurant_id}
+        return render(request, 'restaurantapp/postMenu.html', context)
+
+    if request.method == "POST":
+        r = Restaurant.objects.only('id').get(id=restaurant_id)
+        m = MenuItem.objects.create(name=request.POST.get('name'),
+                                    description=request.POST.get('description'),
+                                    price=request.POST.get('price'),
+                                    course=request.POST.get('course'),
+                                    restaurant_id=r)
+
+        menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
+        context = {'menuList': menuList, 'restaurant_id': restaurant_id}
+
+        return render(request, 'restaurantapp/listMenu.html', context)
+
+
+

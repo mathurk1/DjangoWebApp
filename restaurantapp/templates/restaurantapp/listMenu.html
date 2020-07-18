@@ -8,11 +8,14 @@
     <a href="{% url 'listRestaurant' %}"><h4>Main Menu</h4></a>
 
     {% for MenuItem in menuList %}
+
         <li>{{ MenuItem.name }} - {{ MenuItem.description }} - {{ MenuItem.price }}</li>
 
         <p> <a href = "{% url 'deleteMenu' MenuItem.restaurant_id MenuItem.id %}">Delete Menu Item</a> </p>
 
     {% endfor %}
+
+    <a href = "{% url 'addMenuItem' restaurant_id %}" > <h4> Create a New Menu Item </h4></a>
 
     </br>
 </body>
