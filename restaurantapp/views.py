@@ -89,9 +89,11 @@ def deleteMenu(request, restaurant_id, menu_id):
         raise Http404("Menu Item does not exist")
 
 
+# create the model form
+MenuItemForm = modelform_factory(MenuItem, exclude=['restaurant_id'])
+
+
 def addMenuItem(request, restaurant_id):
-    #create the model form
-    MenuItemForm = modelform_factory(MenuItem, exclude=['restaurant_id'])
 
     if request.method == "GET":
         form = MenuItemForm()
@@ -114,19 +116,22 @@ def addMenuItem(request, restaurant_id):
 def editMenu(request, restaurant_id, menu_id):
     """This function edits a given menu item"""
 
+    # get the menu item to be edited
+    menuItem = MenuItem.objects.filter(id=menu_id).first()
+
     if request.method == 'GET':
-        menuItem = MenuItem.objects.filter(id=menu_id).first()
-        context = {'menuItem': menuItem}
+        form = MenuItemForm(instance=menuItem)
+        context = {'form': form}
 
         return render(request, 'restaurantapp/editMenu.html', context)
 
     if request.method == 'POST':
-        MenuItem.objects.filter(id=menu_id)\
-            .update(name=request.POST.get('name'),
-                    description=request.POST.get('description'),
-                    price=request.POST.get('price'),
-                    course=request.POST.get('course'),
-                    )
+        form = MenuItemForm(request.POST, instance=menuItem)
+        if form.is_valid():
+            menuItem = form.save(commit=False)
+            r = Restaurant.objects.only('id').get(id=restaurant_id)
+            menuItem.restaurant_id = r
+            menuItem.save()
 
         menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
         context = {'menuList': menuList, 'restaurant_id': restaurant_id}
