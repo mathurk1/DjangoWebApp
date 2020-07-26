@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import Http404
-from django.forms import modelform_factory
 
 from .models import Restaurant, MenuItem
+from .forms import MenuItemForm
 
 
 def listRestaurant(request):
@@ -87,10 +87,6 @@ def deleteMenu(request, restaurant_id, menu_id):
         return render(request, 'restaurantapp/listMenu.html', context)
     except Restaurant.DoesNotExist:
         raise Http404("Menu Item does not exist")
-
-
-# create the model form
-MenuItemForm = modelform_factory(MenuItem, exclude=['restaurant_id'])
 
 
 def addMenuItem(request, restaurant_id):
