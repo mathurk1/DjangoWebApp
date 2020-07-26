@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import Http404
+from django.forms import modelform_factory
 
 from .models import Restaurant, MenuItem
 
@@ -89,23 +90,25 @@ def deleteMenu(request, restaurant_id, menu_id):
 
 
 def addMenuItem(request, restaurant_id):
+    #create the model form
+    MenuItemForm = modelform_factory(MenuItem, exclude=['restaurant_id'])
 
     if request.method == "GET":
-        context = {'restaurant_id': restaurant_id}
-        return render(request, 'restaurantapp/postMenu.html', context)
+        form = MenuItemForm()
+        return render(request, 'restaurantapp/postMenu.html', {"form" : form})
 
     if request.method == "POST":
+        form = MenuItemForm(request.POST)
         r = Restaurant.objects.only('id').get(id=restaurant_id)
-        m = MenuItem.objects.create(name=request.POST.get('name'),
-                                    description=request.POST.get('description'),
-                                    price=request.POST.get('price'),
-                                    course=request.POST.get('course'),
-                                    restaurant_id=r)
+        if form.is_valid():
+            newMenuItem = form.save(commit=False)
+            newMenuItem.restaurant_id = r
+            newMenuItem.save()
 
-        menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
-        context = {'menuList': menuList, 'restaurant_id': restaurant_id}
+            menuList = MenuItem.objects.all().filter(restaurant_id=restaurant_id)
+            context = {'menuList': menuList, 'restaurant_id': restaurant_id}
 
-        return render(request, 'restaurantapp/listMenu.html', context)
+            return render(request, 'restaurantapp/listMenu.html', context)
 
 
 def editMenu(request, restaurant_id, menu_id):

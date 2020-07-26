@@ -4,21 +4,11 @@
     <meta charset="UTF-8">
     <title>New Menu Item</title>
 </head>
-<body>
-        <form action= "{% url 'addMenuItem' restaurant_id %}" method="post" action = "#">{% csrf_token %}
-            <p>Menu Item Name:</p>
-            <input type = "text" size = 30, name = 'name'>
-            <p>Description</p>
-            <textarea type = "text" name = 'description' rows="4" cols="50"></textarea>
-            <p>Price</p>
-            <input type="text" name = "price">
-            <p>Course</p>
-            <input type = 'radio' name = 'course' value="Appetizer" >Appetizer</br>
-            <input type = 'radio' name = 'course' value="Entree" >Entree</br>
-            <input type = 'radio' name = 'course' value="Desert" >Desert</br>
-            <input type = 'radio' name = 'course' value="Beverage" >Beverage</br>
-            </br>
-            <input type="submit" value = "addMenuItem"/>
-        </form>
-</body>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <button type = "submit">Add Item</button>
+</form>
 </html>
